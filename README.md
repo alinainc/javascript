@@ -3,6 +3,7 @@ Please read [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript
 
 ## Table of Contents
 1. [Modules](#modules)
+1. [GraphQL](#graphql)
 
 ## Modules
 
@@ -28,13 +29,13 @@ Please read [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript
   import { b } from 'A';
   import { c } from 'B';
   import { a } from 'C';
- 
+
   // bad
   import { a } from 'C';
   import { b } from 'A';
   import { c } from 'B';
   ```
- 
+
    <a name="modules--do-not-wrap"></a><a name="1.3"></a>
   - [1.3](#modules--do-not-wrap) **Do not wrap unless it is necessary.**
 
@@ -124,6 +125,92 @@ Please read [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript
 
   import http from 'http';
   import lodash from 'lodash';
+  ```
+
+## GraphQL
+
+  <a name="graphql--types"></a><a name="2.1"></a>
+  - [2.1](#graphql--types) **Put types in alphbetical order.**
+
+  ```graphql
+  # good
+  extend type Mutation {}
+  extend type Query {}
+
+  #good
+  type Employee {}
+  type Staff {}
+
+  # bad - Mutation sholud be before Query.
+  extend type Query {}
+  extend type Mutation {}
+
+  # bad - Employee be before Staff.
+  type Staff {}
+  type Employee {}
+  ```
+
+  <a name="graphql--type-group"></a><a name="2.2"></a>
+  - [2.2](#graphql--type-group) **Group types, sort them in alphbetical order and add an empty line between each group.**
+
+  ```graphql
+  # good
+  extend type Mutation {}
+  extend type Query {}
+
+  input EmployeeInput {}
+
+  type Employee {}
+  type Staff {}
+
+  # bad - Extend types sholud be before input.
+  input EmployeeInput {}
+
+  extend type Mutation {}
+  extend type Query {}
+
+  # bad - Empty lines are required between each group.
+  extend type Mutation {}
+  extend type Query {}
+  input EmployeeInput {}
+  type Employee {}
+  ```
+
+  <a name="graphql--fields"></a><a name="2.3"></a>
+  - [2.3](#graphql--fields) **Put fields in alphbetical order.**
+
+  ```graphql
+  # good
+  extend type Mutation {
+    createStaff: Staff!
+    updateEmployee: Employee!
+  }
+
+  # bad
+  extend type Mutation {
+    updateEmployee: Employee!
+    createStaff: Staff!
+  }
+  ```
+
+  <a name="graphql--operation-names"></a><a name="2.4"></a>
+  - [2.4](#graphql--operation-names) **Operation names are all capital letters with underscores and use same names of the queries or mutations.**
+
+  ```graphql
+  # good
+  query EMPLOYEE {
+    employee { ... }
+  }
+
+  # bad
+  query Employee {
+    employee { ... }
+  }
+
+  # bad
+  query LOAD_EMPLOYEE {
+    employee { ... }
+  }
   ```
 
 **[⬆ back to top](#table-of-contents)**
